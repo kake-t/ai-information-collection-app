@@ -1,2 +1,3 @@
-# ai-information-collection-app
-AI情報収集アプリ
+# web
+
+AI 情報収集アプリ
