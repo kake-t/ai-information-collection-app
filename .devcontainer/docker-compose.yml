@@ -1,6 +1,6 @@
 services:
-  dev-python313-ai-info-collection-app:
-    container_name: ai-info-collection-app
+  dev-python313-ai-information-collection-app:
+    container_name: ${APP_NAME}
     build:
       context: ../
       dockerfile: .devcontainer/Dockerfile.dev

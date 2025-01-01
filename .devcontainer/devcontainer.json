@@ -1,8 +1,8 @@
 {
-    "name": "Development Python3.13 ai-info-collection-app",
+    "name": "Development Python3.13 ai-information-collection-app",
     "dockerComposeFile": "./docker-compose.yml",
     "workspaceFolder": "/var/task",
-    "service": "dev-python313-ai-info-collection-app",
+    "service": "dev-python313-ai-information-collection-app",
     "customizations": {
         "vscode": {
             "settings": {
