@@ -9,3 +9,6 @@ services:
     volumes:
       - ../requirements.txt:/var/task/requirements.txt
       - ../src:/var/task/src
+      - ../tests:/var/task/tests
+    env_file:
+      - ../.env
