@@ -12,6 +12,7 @@
             "extensions": [
                 "ms-python.python",
                 "ms-python.vscode-pylance",
+                "ms-python.debugpy",
                 "ms-azuretools.vscode-docker",
                 "mhutchie.git-graph",
                 "codezombiech.gitignore",
