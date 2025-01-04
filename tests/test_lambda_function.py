@@ -1,7 +1,8 @@
-from src.lambda_function import handler
+from src.infrastructure.lambda_function import handler
 
 
 def test_handler():
-    event = {}
+    event = {"prompt": "今日のAIに関するニュースを教えて下さい。"}
     context = {}
-    handler(event, context)
+    result = handler(event, context)
+    print(result["body"])
