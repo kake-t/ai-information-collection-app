@@ -2,6 +2,10 @@
 
 AI 情報収集アプリ
 
+## 前提
+
+-   エディター: vscode (cursor)
+
 ## トラブルシュート
 
 ### ~~問題：openai の API から、「No such project」が返ってくる。~~
