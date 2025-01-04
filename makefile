@@ -9,7 +9,7 @@ stop:
 	docker rm $(APP_NAME)
 	-docker network rm $(APP_NAME)_devcontainer_default
 
-build:
+build-dev:
 	docker build --platform linux/amd64 --provenance false -t $(APP_NAME):latest .
 
 push-dev:
