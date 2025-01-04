@@ -9,26 +9,29 @@ from src.domain.entities.text_generation import (
 from src.domain.gateway.text_generation_gateway import TextGenerationGateway
 
 
-class OpenAIGateway(TextGenerationGateway):
+class PerplexityGateway(TextGenerationGateway):
+    _BASE_URL = "https://api.perplexity.ai"
+    _MODEL = "llama-3.1-sonar-small-128k-online"
+
     def __init__(self):
         pass
 
     def generate_text(self, request: TextGenerationRequest) -> TextGenerationResponse:
         client = OpenAI(
-            api_key=os.environ["OPENAI_API_KEY"],
-            organization=os.environ["OPENAI_ORGANIZATION"],
-            project=os.environ["OPENAI_PROJECT_ID"],
+            api_key=os.environ["PERPLEXITY_API_KEY"],
+            base_url=self._BASE_URL,
         )
+        messages = [
+            {
+                "role": "system",
+                "content": "あなたはAIニュースのキャスターです。",
+            },
+            {"role": "user", "content": request.prompt},
+        ]
         try:
             response = client.chat.completions.create(
-                model="gpt-3.5-turbo",
-                messages=[
-                    {
-                        "role": "system",
-                        "content": "あなたはAIニュースのキャスターです。",
-                    },
-                    {"role": "user", "content": request.prompt},
-                ],
+                model=self._MODEL,
+                messages=messages,
                 max_tokens=request.max_tokens,
                 temperature=request.temperature,
             )

@@ -1,16 +1,8 @@
-from openai import OpenAI
-import os
 from typing import Any
 
 from src.domain.entities.text_generation import DEFAULT_MAX_TOKENS, DEFAULT_TEMPERATURE
 from src.usecase.text_generation_usecase import TextGenerationUseCase
-from src.infrastructure.openai_gateway import OpenAIGateway
-
-client = OpenAI(
-    api_key=os.environ["OPENAI_API_KEY"],
-    organization=os.environ["OPENAI_ORGANIZATION"],
-    project=os.environ["OPENAI_PROJECT_ID"],
-)
+from src.infrastructure.perplexity_gateway import PerplexityGateway
 
 
 def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
@@ -25,7 +17,7 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
                 "body": {"error": "Prompt is reqsuired"},
             }
 
-        openai_gateway = OpenAIGateway()
+        openai_gateway = PerplexityGateway()
         usecase = TextGenerationUseCase(openai_gateway)
 
         # テキスト生成の実行
