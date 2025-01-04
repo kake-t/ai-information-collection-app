@@ -6,7 +6,7 @@ from src.domain.entities.text_generation import (
 )
 
 
-class TextGenerationService(Protocol):
+class TextGenerationGateway(Protocol):
     def generate_text(
         self, request: TextGenerationRequest
     ) -> TextGenerationResponse: ...

@@ -6,10 +6,10 @@ from src.domain.entities.text_generation import (
     TextGenerationRequest,
     TextGenerationResponse,
 )
-from src.domain.service_interfaces.text_generation_service import TextGenerationService
+from src.domain.gateway.text_generation_gateway import TextGenerationGateway
 
 
-class OpenAIService(TextGenerationService):
+class OpenAIGateway(TextGenerationGateway):
     def __init__(self):
         pass
 

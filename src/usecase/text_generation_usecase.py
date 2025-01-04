@@ -2,12 +2,12 @@ from src.domain.entities.text_generation import (
     TextGenerationRequest,
     TextGenerationResponse,
 )
-from src.domain.service_interfaces.text_generation_service import TextGenerationService
+from src.domain.gateway.text_generation_gateway import TextGenerationGateway
 
 
 class TextGenerationUseCase:
-    def __init__(self, text_generation_service: TextGenerationService):
-        self._text_generation_service = text_generation_service
+    def __init__(self, text_generation_gateway: TextGenerationGateway):
+        self._text_generation_gateway = text_generation_gateway
 
     def generate(
         self, prompt: str, max_tokens: int, temperature: float
@@ -15,4 +15,4 @@ class TextGenerationUseCase:
         request = TextGenerationRequest(
             prompt=prompt, max_tokens=max_tokens, temperature=temperature
         )
-        return self._text_generation_service.generate_text(request)
+        return self._text_generation_gateway.generate_text(request)

@@ -4,7 +4,7 @@ from typing import Any
 
 from src.domain.entities.text_generation import DEFAULT_MAX_TOKENS, DEFAULT_TEMPERATURE
 from src.usecase.text_generation_usecase import TextGenerationUseCase
-from src.infrastructure.openai_service import OpenAIService
+from src.infrastructure.openai_gateway import OpenAIGateway
 
 client = OpenAI(
     api_key=os.environ["OPENAI_API_KEY"],
@@ -25,8 +25,8 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
                 "body": {"error": "Prompt is reqsuired"},
             }
 
-        openai_service = OpenAIService()
-        usecase = TextGenerationUseCase(openai_service)
+        openai_gateway = OpenAIGateway()
+        usecase = TextGenerationUseCase(openai_gateway)
 
         # テキスト生成の実行
         result = usecase.generate(prompt, max_tokens, temperature)
