@@ -9,7 +9,7 @@ from src.domain.entities.text_generation import (
 from src.domain.gateway.text_generation_gateway import TextGenerationGateway
 
 
-class PerplexityGateway(TextGenerationGateway):
+class PerplexityTextGenerationGateway(TextGenerationGateway):
     _BASE_URL = "https://api.perplexity.ai"
     _MODEL = "llama-3.1-sonar-small-128k-online"
 

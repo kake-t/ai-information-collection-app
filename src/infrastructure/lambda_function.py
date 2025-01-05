@@ -2,7 +2,7 @@ from typing import Any
 
 from src.domain.entities.text_generation import DEFAULT_MAX_TOKENS, DEFAULT_TEMPERATURE
 from src.usecase.text_generation_usecase import TextGenerationUseCase
-from src.infrastructure.perplexity_gateway import PerplexityGateway
+from src.infrastructure.perplexity_text_generation_gateway import PerplexityTextGenerationGateway
 
 
 def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
@@ -17,7 +17,7 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
                 "body": {"error": "Prompt is reqsuired"},
             }
 
-        openai_gateway = PerplexityGateway()
+        openai_gateway = PerplexityTextGenerationGateway()
         usecase = TextGenerationUseCase(openai_gateway)
 
         # テキスト生成の実行
