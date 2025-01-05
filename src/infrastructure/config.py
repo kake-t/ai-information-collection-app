@@ -10,7 +10,7 @@ class AwsConfig:
 
 @dataclass(frozen=True)
 class TextGenerationApiConfig:
-    text_generation_api_key: str
+    key: str
 
 
 @dataclass
@@ -55,9 +55,7 @@ class ConfigurationReader:
             )
 
             text_generation_api_config = TextGenerationApiConfig(
-                text_generation_api_key=ConfigurationReader.get_env_var(
-                    "PERPLEXITY_API_KEY"
-                ),
+                key=ConfigurationReader.get_env_var("PERPLEXITY_API_KEY"),
             )
 
             return Config(
