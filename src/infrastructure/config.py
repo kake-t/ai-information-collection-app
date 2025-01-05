@@ -13,13 +13,13 @@ class TextGenerationApiConfig:
     key: str
 
 
-@dataclass
+@dataclass(frozen=True)
 class Config:
     aws: AwsConfig
     text_genaration_api: TextGenerationApiConfig
 
 
-class ConfigurationError(Exception):
+class _ConfigurationError(Exception):
     """設定エラーを表すカスタム例外"""
 
     pass
@@ -31,7 +31,7 @@ class ConfigurationReader:
         """環境変数を取得し、存在しない場合は例外を発生させる"""
         value = os.getenv(key)
         if value is None:
-            raise ConfigurationError(f"環境変数 {key} が設定されていません")
+            raise _ConfigurationError(f"環境変数 {key} が設定されていません")
         return value
 
     @staticmethod
@@ -41,7 +41,7 @@ class ConfigurationReader:
         try:
             return int(value)
         except ValueError:
-            raise ConfigurationError(
+            raise _ConfigurationError(
                 f"環境変数 {key} は有効な整数ではありません: {value}"
             )
 
@@ -63,6 +63,6 @@ class ConfigurationReader:
                 text_genaration_api=text_generation_api_config,
             )
         except Exception as e:
-            raise ConfigurationError(
+            raise _ConfigurationError(
                 f"設定の読み込み中にエラーが発生しました: {str(e)}"
             )
