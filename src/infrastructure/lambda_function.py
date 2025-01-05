@@ -2,14 +2,27 @@ from typing import Any
 
 from src.domain.entities.text_generation import DEFAULT_MAX_TOKENS, DEFAULT_TEMPERATURE
 from src.usecase.text_generation_usecase import TextGenerationUseCase
-from src.infrastructure.perplexity_text_generation_gateway import PerplexityTextGenerationGateway
+from src.usecase.send_email_usecase import SendEmailUsecase
+from src.infrastructure.perplexity_text_generation_gateway import (
+    PerplexityTextGenerationGateway,
+)
+from src.infrastructure.ses_send_email_gateway import SesSendEmailGateway
+from src.infrastructure.config import ConfigurationReader
 
 
 def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
     try:
+        config = ConfigurationReader.get_config()
         prompt = event.get("prompt")
         max_tokens = event.get("max_tokens", DEFAULT_MAX_TOKENS)
         temperature = event.get("temperature", DEFAULT_TEMPERATURE)
+
+        email_source = event.get("email_source")
+        if email_source is None:
+            raise Exception("email_sourceは必須です。")
+        email_destination = event.get("email_destination")
+        if email_destination is None:
+            raise Exception("email_destinationは必須です。")
 
         if not prompt:
             return {
@@ -17,17 +30,28 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
                 "body": {"error": "Prompt is reqsuired"},
             }
 
-        openai_gateway = PerplexityTextGenerationGateway()
-        usecase = TextGenerationUseCase(openai_gateway)
-
+        text_generation_gateway = PerplexityTextGenerationGateway(
+            text_generation_api_config=config.text_genaration_api
+        )
+        usecase = TextGenerationUseCase(text_generation_gateway)
         # テキスト生成の実行
-        result = usecase.generate(prompt, max_tokens, temperature)
+        text_generation_result = usecase.generate(prompt, max_tokens, temperature)
+        generated_text = text_generation_result.generated_text
+
+        email_gateway = SesSendEmailGateway(aws_config=config.aws)
+        send_email_usecase = SendEmailUsecase(send_email_gateway=email_gateway)
+        # email送信
+        send_email_usecase.send_email(
+            source=email_source,
+            destination=email_destination,
+            generated_text=generated_text,
+        )
 
         return {
             "statusCode": 200,
             "body": {
-                "generated_text": result.generated_text,
-                "token_count": result.token_count,
+                "generated_text": generated_text,
+                "token_count": text_generation_result.token_count,
             },
         }
 
