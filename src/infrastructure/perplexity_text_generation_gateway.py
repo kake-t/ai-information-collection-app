@@ -21,24 +21,34 @@ class PerplexityTextGenerationGateway(TextGenerationGateway):
             api_key=os.environ["PERPLEXITY_API_KEY"],
             base_url=self._BASE_URL,
         )
-        messages = [
-            {
-                "role": "system",
-                "content": "あなたはAIニュースのキャスターです。",
-            },
-            {"role": "user", "content": request.prompt},
-        ]
         try:
             response = client.chat.completions.create(
                 model=self._MODEL,
-                messages=messages,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "あなたはAIニュースのキャスターです。",
+                    },
+                    {
+                        "role": "user",
+                        "content": request.prompt,
+                    },
+                ],
                 max_tokens=request.max_tokens,
                 temperature=request.temperature,
             )
 
+            content = response.choices[0].message.content
+            if content is None:
+                raise Exception("Generated text is None")
+
+            usage = response.usage
+            if usage is None:
+                raise Exception("Usage information is None")
+
             return TextGenerationResponse(
-                generated_text=response.choices[0].message.content,
-                token_count=response.usage.total_tokens,
+                generated_text=content,
+                token_count=usage.total_tokens,
             )
         except Exception as e:
             raise Exception(f"Perplexity API error: {str(e)}")
