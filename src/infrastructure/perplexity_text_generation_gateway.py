@@ -1,5 +1,3 @@
-import os
-
 from openai import OpenAI
 
 from src.domain.entities.text_generation import (
