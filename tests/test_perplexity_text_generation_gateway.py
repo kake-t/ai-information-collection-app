@@ -9,13 +9,16 @@ from src.domain.entities.text_generation import (
 from src.infrastructure.perplexity_text_generation_gateway import (
     PerplexityTextGenerationGateway,
 )
+from src.infrastructure.config import ConfigurationReader
 
 
 @pytest.fixture
 def gateway():
     # 環境変数のセットアップ
     os.environ["PERPLEXITY_API_KEY"] = "test-api-key"
-    return PerplexityTextGenerationGateway()
+    os.environ["AWS_REGION"] = "ap-northeast-1"
+    config = ConfigurationReader.get_config().text_genaration_api
+    return PerplexityTextGenerationGateway(text_generation_api_config=config)
 
 
 def test_generate_text_success(mocker, gateway):
@@ -79,17 +82,3 @@ def test_generate_text_api_error(mocker, gateway):
     with pytest.raises(Exception) as exc_info:
         gateway.generate_text(request)
     assert "Perplexity API error: API Error" in str(exc_info.value)
-
-
-def test_generate_text_missing_api_key(gateway):
-    """api keyの環境変数が設定されていないときのエラーのテスト"""
-    # Arrange
-    if "PERPLEXITY_API_KEY" in os.environ:
-        del os.environ["PERPLEXITY_API_KEY"]
-
-    # 実行 & 検証
-    with pytest.raises(KeyError):
-        request = TextGenerationRequest(
-            prompt="テストプロンプト", max_tokens=100, temperature=0.7
-        )
-        gateway.generate_text(request)

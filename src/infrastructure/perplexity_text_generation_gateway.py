@@ -7,18 +7,19 @@ from src.domain.entities.text_generation import (
     TextGenerationResponse,
 )
 from src.domain.gateway.text_generation_gateway import TextGenerationGateway
+from src.infrastructure.config import TextGenerationApiConfig
 
 
 class PerplexityTextGenerationGateway(TextGenerationGateway):
     _BASE_URL = "https://api.perplexity.ai"
     _MODEL = "llama-3.1-sonar-small-128k-online"
 
-    def __init__(self):
-        pass
+    def __init__(self, text_generation_api_config: TextGenerationApiConfig):
+        self._text_generation_api_config = text_generation_api_config
 
     def generate_text(self, request: TextGenerationRequest) -> TextGenerationResponse:
         client = OpenAI(
-            api_key=os.environ["PERPLEXITY_API_KEY"],
+            api_key=self._text_generation_api_config.key,
             base_url=self._BASE_URL,
         )
         try:
