@@ -41,4 +41,4 @@ class PerplexityTextGenerationGateway(TextGenerationGateway):
                 token_count=response.usage.total_tokens,
             )
         except Exception as e:
-            raise Exception(f"OpenAI API error: {str(e)}")
+            raise Exception(f"Perplexity API error: {str(e)}")
