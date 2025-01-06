@@ -8,6 +8,7 @@ services:
     working_dir: /var/task
     volumes:
       - ../requirements.txt:/var/task/requirements.txt
+      - ../requirements-dev.txt:/var/task/requirements-dev.txt
       - ../src:/var/task/src
       - ../tests:/var/task/tests
     env_file:
