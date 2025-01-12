@@ -17,18 +17,14 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
         max_tokens = event.get("max_tokens", DEFAULT_MAX_TOKENS)
         temperature = event.get("temperature", DEFAULT_TEMPERATURE)
 
-        email_source = event.get("email_source")
-        if email_source is None:
-            raise Exception("email_sourceは必須です。")
-        email_destination = event.get("email_destination")
-        if email_destination is None:
-            raise Exception("email_destinationは必須です。")
-
         if not prompt:
             return {
                 "statusCode": 400,
                 "body": {"error": "Prompt is reqsuired"},
             }
+
+        email_source = config.email.source
+        email_destination = config.email.destination
 
         text_generation_gateway = PerplexityTextGenerationGateway(
             text_generation_api_config=config.text_genaration_api

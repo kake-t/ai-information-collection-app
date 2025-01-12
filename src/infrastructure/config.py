@@ -14,9 +14,16 @@ class TextGenerationApiConfig:
 
 
 @dataclass(frozen=True)
+class EmailConfig:
+    source: str
+    destination: str
+
+
+@dataclass(frozen=True)
 class Config:
     aws: AwsConfig
     text_genaration_api: TextGenerationApiConfig
+    email: EmailConfig
 
 
 class _ConfigurationError(Exception):
@@ -58,9 +65,15 @@ class ConfigurationReader:
                 key=ConfigurationReader.get_env_var("PERPLEXITY_API_KEY"),
             )
 
+            email_config = EmailConfig(
+                source=ConfigurationReader.get_env_var("EMAIL_SOURCE"),
+                destination=ConfigurationReader.get_env_var("EMAIL_DESTINATION"),
+            )
+
             return Config(
                 aws=aws_config,
                 text_genaration_api=text_generation_api_config,
+                email=email_config,
             )
         except Exception as e:
             raise _ConfigurationError(

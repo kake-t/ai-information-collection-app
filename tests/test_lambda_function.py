@@ -1,11 +1,11 @@
 from src.infrastructure.lambda_function import handler
-import os
 
 
 def test_handler():
-    print(os.environ["PERPLEXITY_API_KEY"])
     event = {
-        "prompt": "昨日のAIに関するニュースを教えて下さい。冒頭に機能の年月日を出力してください。"
+        "prompt": "昨日のAIに関するニュースを教えて下さい。冒頭に昨日の年月日を出力してください。",
+        "max_tokens": 1000,
+        "temperature": 0.7,
     }
     context = {}
     result = handler(event, context)
