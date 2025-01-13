@@ -1,6 +1,15 @@
 include .env
 
-build:
+# 開発用コンテナ起動。事前にdevcontainerをインストール：npm install -g @devcontainers/cli
+run:
+	sh .devcontainer/run_container.sh
+
+stop:
+	docker stop $(APP_NAME)
+	docker rm $(APP_NAME)
+	-docker network rm $(APP_NAME)_devcontainer_default
+
+build-dev:
 	docker build --platform linux/amd64 --provenance false -t $(APP_NAME):latest .
 
 push-dev:

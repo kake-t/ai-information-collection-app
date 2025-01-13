@@ -1,6 +1,6 @@
 services:
-  dev-python313-ai-info-collection-app:
-    container_name: ai-info-collection-app
+  dev-python313-ai-information-collection-app:
+    container_name: ${APP_NAME}
     build:
       context: ../
       dockerfile: .devcontainer/Dockerfile.dev
@@ -8,4 +8,8 @@ services:
     working_dir: /var/task
     volumes:
       - ../requirements.txt:/var/task/requirements.txt
+      - ../requirements-dev.txt:/var/task/requirements-dev.txt
       - ../src:/var/task/src
+      - ../tests:/var/task/tests
+    env_file:
+      - ../.env
