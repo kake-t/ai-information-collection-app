@@ -1,17 +1,15 @@
 from typing import Any
 
-import boto3
 
 from src.domain.entities.send_email import SendEmailRequest
 from src.domain.gateway.send_email_gateway import SendEmailGateway
-from src.infrastructure.config import AwsConfig
 
 
 class SesSendEmailGateway(SendEmailGateway):
     _CHARSET = "UTF-8"
 
-    def __init__(self, aws_config: AwsConfig) -> None:
-        self._aws_config = aws_config
+    def __init__(self, aws_client_ses: Any) -> None:
+        self._ses = aws_client_ses
 
     def send_email(self, request: SendEmailRequest) -> Any:
         source = request.source
@@ -19,13 +17,8 @@ class SesSendEmailGateway(SendEmailGateway):
         subject = request.subject
         body = request.body
 
-        ses = boto3.client(
-            "ses",
-            region_name=self._aws_config.resion,
-        )
-        ses.verify_email_identity(EmailAddress=source)
         try:
-            response = ses.send_email(
+            response = self._ses.send_email(
                 Source=source,
                 Destination={"ToAddresses": [destination]},
                 Message={

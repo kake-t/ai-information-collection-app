@@ -5,7 +5,7 @@ from src.domain.entities.text_generation import (
 from src.domain.gateway.text_generation_gateway import TextGenerationGateway
 
 
-class TextGenerationUseCase:
+class TextGenerationUsecase:
     def __init__(self, text_generation_gateway: TextGenerationGateway):
         self._text_generation_gateway = text_generation_gateway
 

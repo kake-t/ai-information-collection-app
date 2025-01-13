@@ -4,21 +4,14 @@ import pytest
 from moto import mock_aws
 
 from src.domain.entities.send_email import SendEmailRequest
-from src.infrastructure.ses_send_email_gateway import SesSendEmailGateway
-from src.infrastructure.config import AwsConfig
+from src.infrastructure.gateway.ses_send_email_gateway import SesSendEmailGateway
+from src.infrastructure.aws_client import get_ses_client
 
 AWS_RESION = "ap-northeast-1"
 
 
-@pytest.fixture
-def gateway():
-    # 環境変数のセットアップ
-    os.environ.pop("AWS_PROFILE", None)
-    return SesSendEmailGateway(AwsConfig(resion=AWS_RESION))
-
-
 @mock_aws
-def test_send_email_success(gateway):
+def test_send_email_success():
     # 準備
     source = "source@example.com"
     destination = "destination@example.com"
@@ -29,6 +22,9 @@ def test_send_email_success(gateway):
         source=source, destination=destination, subject=subject, body=body
     )
 
+    ses = get_ses_client(region=os.environ["AWS_REGION"])
+    ses.verify_email_identity(EmailAddress=source)
+    gateway = SesSendEmailGateway(aws_client_ses=ses)
     # 実行
     response = gateway.send_email(request)
 
@@ -37,7 +33,7 @@ def test_send_email_success(gateway):
 
 
 @mock_aws
-def test_send_email_error(gateway):
+def test_send_email_error():
     # 準備
     source = "invalid_email"  # 不正なメールアドレス
     destination = "destination@example.com"
@@ -47,6 +43,10 @@ def test_send_email_error(gateway):
     request = SendEmailRequest(
         source=source, destination=destination, subject=subject, body=body
     )
+
+    ses = get_ses_client(region=os.environ["AWS_REGION"])
+    ses.verify_email_identity(EmailAddress=source)
+    gateway = SesSendEmailGateway(aws_client_ses=ses)
 
     # 実行 & 検証
     with pytest.raises(Exception) as exc_info:
