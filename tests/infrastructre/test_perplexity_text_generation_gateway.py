@@ -1,4 +1,3 @@
-import os
 from unittest.mock import MagicMock
 import pytest
 
@@ -14,9 +13,6 @@ from src.infrastructure.config import ConfigurationReader
 
 @pytest.fixture
 def gateway():
-    # 環境変数のセットアップ
-    os.environ["PERPLEXITY_API_KEY"] = "test-api-key"
-    os.environ["AWS_REGION"] = "ap-northeast-1"
     config = ConfigurationReader.get_config().text_genaration_api
     return PerplexityTextGenerationGateway(text_generation_api_config=config)
 

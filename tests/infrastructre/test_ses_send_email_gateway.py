@@ -1,5 +1,3 @@
-import os
-
 import pytest
 from moto import mock_aws
 
@@ -12,8 +10,6 @@ AWS_RESION = "ap-northeast-1"
 
 @pytest.fixture
 def gateway():
-    # 環境変数のセットアップ
-    os.environ.pop("AWS_PROFILE", None)
     return SesSendEmailGateway(AwsConfig(resion=AWS_RESION))
 
 
