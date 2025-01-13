@@ -1,7 +1,7 @@
 from typing import Any
 
 from src.domain.entities.text_generation import DEFAULT_MAX_TOKENS, DEFAULT_TEMPERATURE
-from src.usecase.text_generation_usecase import TextGenerationUseCase
+from src.usecase.text_generation_usecase import TextGenerationUsecase
 from src.usecase.send_email_usecase import SendEmailUsecase
 from src.infrastructure.gateway.perplexity_text_generation_gateway import (
     PerplexityTextGenerationGateway,
@@ -30,7 +30,7 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
         text_generation_gateway = PerplexityTextGenerationGateway(
             text_generation_api_config=config.text_genaration_api
         )
-        usecase = TextGenerationUseCase(text_generation_gateway)
+        usecase = TextGenerationUsecase(text_generation_gateway)
         # テキスト生成の実行
         text_generation_result = usecase.generate(prompt, max_tokens, temperature)
         generated_text = text_generation_result.generated_text
