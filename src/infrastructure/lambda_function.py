@@ -3,11 +3,12 @@ from typing import Any
 from src.domain.entities.text_generation import DEFAULT_MAX_TOKENS, DEFAULT_TEMPERATURE
 from src.usecase.text_generation_usecase import TextGenerationUseCase
 from src.usecase.send_email_usecase import SendEmailUsecase
-from src.infrastructure.perplexity_text_generation_gateway import (
+from src.infrastructure.gateway.perplexity_text_generation_gateway import (
     PerplexityTextGenerationGateway,
 )
-from src.infrastructure.ses_send_email_gateway import SesSendEmailGateway
+from src.infrastructure.gateway.ses_send_email_gateway import SesSendEmailGateway
 from src.infrastructure.config import ConfigurationReader
+from src.infrastructure.aws_client import get_ses_client
 
 
 def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
@@ -34,7 +35,9 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
         text_generation_result = usecase.generate(prompt, max_tokens, temperature)
         generated_text = text_generation_result.generated_text
 
-        email_gateway = SesSendEmailGateway(aws_config=config.aws)
+        email_gateway = SesSendEmailGateway(
+            aws_client_ses=get_ses_client(region=config.aws.resion)
+        )
         send_email_usecase = SendEmailUsecase(send_email_gateway=email_gateway)
         # email送信
         send_email_usecase.send_email(

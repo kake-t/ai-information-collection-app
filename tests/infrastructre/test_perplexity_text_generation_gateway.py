@@ -5,7 +5,7 @@ from src.domain.entities.text_generation import (
     TextGenerationRequest,
     TextGenerationResponse,
 )
-from src.infrastructure.perplexity_text_generation_gateway import (
+from src.infrastructure.gateway.perplexity_text_generation_gateway import (
     PerplexityTextGenerationGateway,
 )
 from src.infrastructure.config import ConfigurationReader
@@ -29,7 +29,7 @@ def test_generate_text_success(mocker, gateway):
         usage=MagicMock(total_tokens=expected_token_count),
     )
     mocker.patch(
-        "src.infrastructure.perplexity_text_generation_gateway.OpenAI",
+        "src.infrastructure.gateway.perplexity_text_generation_gateway.OpenAI",
         return_value=mock_client,
     )
 
@@ -66,7 +66,7 @@ def test_generate_text_api_error(mocker, gateway):
     mock_client = MagicMock()
     mock_client.chat.completions.create.side_effect = Exception("API Error")
     mocker.patch(
-        "src.infrastructure.perplexity_text_generation_gateway.OpenAI",
+        "src.infrastructure.gateway.perplexity_text_generation_gateway.OpenAI",
         return_value=mock_client,
     )
 
