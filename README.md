@@ -45,6 +45,39 @@ AI で今日の AI に関するニュースを生成して、ニュースをメ�
 -   エディター: vscode (cursor)
 -   docker
 
+<!-- TODO: devcontainreでのテスト方法を書く -->
+
+## デプロイ方法
+
+### 前提
+
+-   AWS ECR にリポジトリが作成されていること（イメージのプッシュ先）
+-   aws cli をインストールし、profile を設定していること
+
+### デプロイ手順
+
+#### 初回
+
+1. `.env.example`をコピーして、`.env`ファイルを作成する。
+1. 以下の環境変数を設定する（内容は`.env.example`のコメント参照）。
+    - APP_NAME
+    - AWS_PROFILE
+    - REGION
+    - AWS_ECR_ACCOUNT
+    - DEV_ECR_REPOSITORY_URI
+1. `make build-dev`コマンドを実行して、docker image をビルドする。
+1. （初回だけ）`push-dev-image-only`で image をプッシュする。
+1. ブラウザで、AWS Lambda の画面を開いて、image から Lambda を作成する。このとき、環境変数`APP_NAME`で設定した名前にする。
+1. 作成した Lambda に以下の環境変数を設定する（内容は`.env.example`のコメント参照）。
+    - PERPLEXITY_API_KEY
+    - EMAIL_SOURCE
+    - EMAIL_DESTINATION
+
+#### 2 回目以降
+
+1. `make build-dev`コマンドを実行して、docker image をビルドする。
+1. `push-dev`で image をプッシュする。Lambda 関数にも即座に image が適応される。
+
 ## トラブルシュート
 
 ### devcontainer の中で、test が実行できない。
