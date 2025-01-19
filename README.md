@@ -45,7 +45,16 @@ AI で今日の AI に関するニュースを生成して、ニュースをメ�
 -   エディター: vscode (cursor)
 -   docker
 
-<!-- TODO: devcontainreでのテスト方法を書く -->
+### テスト実行方法
+
+vscode の Devcontainer 機能でコンテナを作成し、コンテナ内でテストを実行します。
+
+事前に`npm install -g @devcontainers/cli`で Devcontainer の CLI をインストールしていれば、以下の make コマンドが使用できます。
+
+-   `make run` Devcontainer 起動
+-   `make stop` Devcontainer 停止
+
+test は、vscode の Testing 機能で実行してください。
 
 ## デプロイ方法
 
