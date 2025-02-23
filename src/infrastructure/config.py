@@ -22,13 +22,12 @@ class EmailConfig:
 @dataclass(frozen=True)
 class Config:
     aws: AwsConfig
-    text_genaration_api: TextGenerationApiConfig
+    text_generation_api: TextGenerationApiConfig
     email: EmailConfig
 
 
 class _ConfigurationError(Exception):
     """設定エラーを表すカスタム例外"""
-
 
 
 class ConfigurationReader:
@@ -69,7 +68,7 @@ class ConfigurationReader:
 
             return Config(
                 aws=aws_config,
-                text_genaration_api=text_generation_api_config,
+                text_generation_api=text_generation_api_config,
                 email=email_config,
             )
         except Exception as e:

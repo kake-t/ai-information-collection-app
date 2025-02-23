@@ -27,7 +27,7 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
         email_source = config.email.source
         email_destination = config.email.destination
 
-        text_generation_gateway = PerplexityTextGenerationGateway(text_generation_api_config=config.text_genaration_api)
+        text_generation_gateway = PerplexityTextGenerationGateway(text_generation_api_config=config.text_generation_api)
         usecase = TextGenerationUsecase(text_generation_gateway)
         # テキスト生成の実行
         text_generation_result = usecase.generate(prompt, max_tokens, temperature)
@@ -49,6 +49,5 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
                 "token_count": text_generation_result.token_count,
             },
         }
-
     except Exception as e:
         return {"statusCode": 500, "body": {"error": str(e)}}

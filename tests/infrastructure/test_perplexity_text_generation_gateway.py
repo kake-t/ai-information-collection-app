@@ -14,7 +14,7 @@ from src.infrastructure.gateway.perplexity_text_generation_gateway import (
 
 @pytest.fixture
 def gateway():
-    config = ConfigurationReader.get_config().text_genaration_api
+    config = ConfigurationReader.get_config().text_generation_api
     return PerplexityTextGenerationGateway(text_generation_api_config=config)
 
 
