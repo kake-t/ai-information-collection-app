@@ -27,17 +27,13 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
         email_source = config.email.source
         email_destination = config.email.destination
 
-        text_generation_gateway = PerplexityTextGenerationGateway(
-            text_generation_api_config=config.text_genaration_api
-        )
+        text_generation_gateway = PerplexityTextGenerationGateway(text_generation_api_config=config.text_genaration_api)
         usecase = TextGenerationUsecase(text_generation_gateway)
         # テキスト生成の実行
         text_generation_result = usecase.generate(prompt, max_tokens, temperature)
         generated_text = text_generation_result.generated_text
 
-        email_gateway = SesSendEmailGateway(
-            aws_client_ses=get_ses_client(region=config.aws.resion)
-        )
+        email_gateway = SesSendEmailGateway(aws_client_ses=get_ses_client(region=config.aws.region))
         send_email_usecase = SendEmailUsecase(send_email_gateway=email_gateway)
         # email送信
         send_email_usecase.send_email(

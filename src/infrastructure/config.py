@@ -5,7 +5,7 @@ from functools import lru_cache
 
 @dataclass(frozen=True)
 class AwsConfig:
-    resion: str
+    region: str
 
 
 @dataclass(frozen=True)
@@ -48,9 +48,7 @@ class ConfigurationReader:
         try:
             return int(value)
         except ValueError:
-            raise _ConfigurationError(
-                f"環境変数 {key} は有効な整数ではありません: {value}"
-            )
+            raise _ConfigurationError(f"環境変数 {key} は有効な整数ではありません: {value}")
 
     @staticmethod
     @lru_cache(maxsize=1)
@@ -58,7 +56,7 @@ class ConfigurationReader:
         """設定を読み込んでConfigオブジェクトを返す"""
         try:
             aws_config = AwsConfig(
-                resion=ConfigurationReader.get_env_var("AWS_REGION"),
+                region=ConfigurationReader.get_env_var("AWS_REGION"),
             )
 
             text_generation_api_config = TextGenerationApiConfig(
@@ -76,6 +74,4 @@ class ConfigurationReader:
                 email=email_config,
             )
         except Exception as e:
-            raise _ConfigurationError(
-                f"設定の読み込み中にエラーが発生しました: {str(e)}"
-            )
+            raise _ConfigurationError(f"設定の読み込み中にエラーが発生しました: {str(e)}")

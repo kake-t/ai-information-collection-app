@@ -7,8 +7,6 @@ from src.domain.entities.send_email import SendEmailRequest
 from src.infrastructure.gateway.ses_send_email_gateway import SesSendEmailGateway
 from src.infrastructure.aws_client import get_ses_client
 
-AWS_RESION = "ap-northeast-1"
-
 
 @mock_aws
 def test_send_email_success():
@@ -18,9 +16,7 @@ def test_send_email_success():
     subject = "test title"
     body = "test body"
 
-    request = SendEmailRequest(
-        source=source, destination=destination, subject=subject, body=body
-    )
+    request = SendEmailRequest(source=source, destination=destination, subject=subject, body=body)
 
     ses = get_ses_client(region=os.environ["AWS_REGION"])
     ses.verify_email_identity(EmailAddress=source)
@@ -40,9 +36,7 @@ def test_send_email_error():
     subject = "test title"
     body = "test body"
 
-    request = SendEmailRequest(
-        source=source, destination=destination, subject=subject, body=body
-    )
+    request = SendEmailRequest(source=source, destination=destination, subject=subject, body=body)
 
     ses = get_ses_client(region=os.environ["AWS_REGION"])
     ses.verify_email_identity(EmailAddress=source)
