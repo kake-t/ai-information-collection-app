@@ -29,7 +29,6 @@ class Config:
 class _ConfigurationError(Exception):
     """設定エラーを表すカスタム例外"""
 
-    pass
 
 
 class ConfigurationReader:
@@ -74,4 +73,4 @@ class ConfigurationReader:
                 email=email_config,
             )
         except Exception as e:
-            raise _ConfigurationError(f"設定の読み込み中にエラーが発生しました: {str(e)}")
+            raise _ConfigurationError(f"設定の読み込み中にエラーが発生しました: {e!s}")

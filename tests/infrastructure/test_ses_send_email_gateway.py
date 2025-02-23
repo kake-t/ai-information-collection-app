@@ -4,8 +4,8 @@ import pytest
 from moto import mock_aws
 
 from src.domain.entities.send_email import SendEmailRequest
-from src.infrastructure.gateway.ses_send_email_gateway import SesSendEmailGateway
 from src.infrastructure.aws_client import get_ses_client
+from src.infrastructure.gateway.ses_send_email_gateway import SesSendEmailGateway
 
 
 @mock_aws

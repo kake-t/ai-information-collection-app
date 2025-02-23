@@ -1,14 +1,15 @@
 from unittest.mock import MagicMock
+
 import pytest
 
 from src.domain.entities.text_generation import (
     TextGenerationRequest,
     TextGenerationResponse,
 )
+from src.infrastructure.config import ConfigurationReader
 from src.infrastructure.gateway.perplexity_text_generation_gateway import (
     PerplexityTextGenerationGateway,
 )
-from src.infrastructure.config import ConfigurationReader
 
 
 @pytest.fixture

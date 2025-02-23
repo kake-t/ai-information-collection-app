@@ -27,6 +27,6 @@ class SesSendEmailGateway(SendEmailGateway):
             )
 
         except Exception as e:
-            raise Exception(f"SES send mail error: {str(e)}")
+            raise Exception(f"SES send mail error: {e!s}")
 
         return response
