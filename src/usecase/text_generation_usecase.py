@@ -6,7 +6,7 @@ from src.domain.gateway.text_generation_gateway import TextGenerationGateway
 
 
 class TextGenerationUsecase:
-    def __init__(self, text_generation_gateway: TextGenerationGateway):
+    def __init__(self, text_generation_gateway: TextGenerationGateway) -> None:
         self._text_generation_gateway = text_generation_gateway
 
     def generate(self, prompt: str, max_tokens: int, temperature: float) -> TextGenerationResponse:

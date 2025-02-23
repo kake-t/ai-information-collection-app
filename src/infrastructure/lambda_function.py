@@ -11,7 +11,7 @@ from src.usecase.send_email_usecase import SendEmailUsecase
 from src.usecase.text_generation_usecase import TextGenerationUsecase
 
 
-def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
+def handler(event: dict[str, Any], _: Any) -> dict[str, Any]:
     try:
         config = ConfigurationReader.get_config()
         prompt = event.get("prompt")
@@ -21,7 +21,7 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
         if not prompt:
             return {
                 "statusCode": 400,
-                "body": {"error": "Prompt is reqsuired"},
+                "body": {"error": "Prompt is required"},
             }
 
         email_source = config.email.source
@@ -42,6 +42,9 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
             generated_text=generated_text,
         )
 
+    except Exception as e:  # noqa: BLE001
+        return {"statusCode": 500, "body": {"error": str(e)}}
+    else:
         return {
             "statusCode": 200,
             "body": {
@@ -49,5 +52,3 @@ def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:
                 "token_count": text_generation_result.token_count,
             },
         }
-    except Exception as e:
-        return {"statusCode": 500, "body": {"error": str(e)}}

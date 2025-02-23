@@ -16,17 +16,11 @@ class SesSendEmailGateway(SendEmailGateway):
         subject = request.subject
         body = request.body
 
-        try:
-            response = self._ses.send_email(
-                Source=source,
-                Destination={"ToAddresses": [destination]},
-                Message={
-                    "Subject": {"Data": subject, "Charset": self._CHARSET},
-                    "Body": {"Text": {"Data": body, "Charset": self._CHARSET}},
-                },
-            )
-
-        except Exception as e:
-            raise Exception(f"SES send mail error: {e!s}")
-
-        return response
+        return self._ses.send_email(
+            Source=source,
+            Destination={"ToAddresses": [destination]},
+            Message={
+                "Subject": {"Data": subject, "Charset": self._CHARSET},
+                "Body": {"Text": {"Data": body, "Charset": self._CHARSET}},
+            },
+        )
