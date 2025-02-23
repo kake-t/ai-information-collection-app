@@ -70,7 +70,7 @@ unfixable = [
     "F401", # unused import
     "F841", # unused variable
 ]
-
+exclude = ["tests"]
 logger-objects = ["src.library.logger.LOGGER"]
 
 [tool.ruff.lint.pylint]
