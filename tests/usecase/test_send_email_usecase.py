@@ -1,5 +1,5 @@
 from src.usecase.send_email_usecase import SendEmailUsecase
-from tests.mock.infrastructre.mock_send_email_gateway import MockSendEmailGateway
+from tests.mock.infrastructure.mock_send_email_gateway import MockSendEmailGateway
 
 
 def test_send_email_usecase_success():
