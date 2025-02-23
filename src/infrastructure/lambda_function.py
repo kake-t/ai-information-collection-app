@@ -1,14 +1,14 @@
 from typing import Any
 
 from src.domain.entities.text_generation import DEFAULT_MAX_TOKENS, DEFAULT_TEMPERATURE
-from src.usecase.text_generation_usecase import TextGenerationUsecase
-from src.usecase.send_email_usecase import SendEmailUsecase
+from src.infrastructure.aws_client import get_ses_client
+from src.infrastructure.config import ConfigurationReader
 from src.infrastructure.gateway.perplexity_text_generation_gateway import (
     PerplexityTextGenerationGateway,
 )
 from src.infrastructure.gateway.ses_send_email_gateway import SesSendEmailGateway
-from src.infrastructure.config import ConfigurationReader
-from src.infrastructure.aws_client import get_ses_client
+from src.usecase.send_email_usecase import SendEmailUsecase
+from src.usecase.text_generation_usecase import TextGenerationUsecase
 
 
 def handler(event: dict[str, Any], context: Any) -> dict[str, Any]:

@@ -7,7 +7,5 @@ class SendEmailUsecase:
         self._send_email_gateway = send_email_gateway
 
     def send_email(self, source: str, destination: str, generated_text: str) -> None:
-        request = SendEmailRequest(
-            source=source, destination=destination, body=generated_text
-        )
+        request = SendEmailRequest(source=source, destination=destination, body=generated_text)
         return self._send_email_gateway.send_email(request)

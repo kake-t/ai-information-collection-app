@@ -7,6 +7,4 @@ from src.domain.entities.text_generation import (
 
 class MockTextGenerationGateway(TextGenerationGateway):
     def generate_text(self, request: TextGenerationRequest) -> TextGenerationResponse:
-        return TextGenerationResponse(
-            generated_text="モックで生成されたテキスト", token_count=100
-        )
+        return TextGenerationResponse(generated_text="モックで生成されたテキスト", token_count=100)

@@ -33,9 +33,7 @@ def test_generate_text_success(mocker, gateway):
         return_value=mock_client,
     )
 
-    request = TextGenerationRequest(
-        prompt="テストプロンプト", max_tokens=100, temperature=0.7
-    )
+    request = TextGenerationRequest(prompt="テストプロンプト", max_tokens=100, temperature=0.7)
 
     # 実行
     response = gateway.generate_text(request)
@@ -70,9 +68,7 @@ def test_generate_text_api_error(mocker, gateway):
         return_value=mock_client,
     )
 
-    request = TextGenerationRequest(
-        prompt="テストプロンプト", max_tokens=100, temperature=0.7
-    )
+    request = TextGenerationRequest(prompt="テストプロンプト", max_tokens=100, temperature=0.7)
 
     # 実行 & 検証
     with pytest.raises(Exception) as exc_info:
