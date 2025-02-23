@@ -1,5 +1,5 @@
 from src.usecase.text_generation_usecase import TextGenerationUsecase
-from tests.mock.infrastructre.mock_text_generation_gateway import (
+from tests.mock.infrastructure.mock_text_generation_gateway import (
     MockTextGenerationGateway,
 )
 
