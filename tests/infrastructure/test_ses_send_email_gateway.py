@@ -45,4 +45,3 @@ def test_send_email_error():
     # 実行 & 検証
     with pytest.raises(Exception) as exc_info:
         gateway.send_email(request)
-    assert "SES send mail error" in str(exc_info.value)

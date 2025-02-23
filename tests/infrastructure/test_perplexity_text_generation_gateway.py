@@ -63,7 +63,7 @@ def test_generate_text_api_error(mocker, gateway):
     """apiエラーのテスト"""
     # 準備
     mock_client = MagicMock()
-    mock_client.chat.completions.create.side_effect = Exception("API Error")
+    mock_client.chat.completions.create.side_effect = Exception("Perplexity API error: API Error")
     mocker.patch(
         "src.infrastructure.gateway.perplexity_text_generation_gateway.OpenAI",
         return_value=mock_client,

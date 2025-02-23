@@ -1,25 +1,20 @@
 {
-    "name": "Development Python3.13 ai-information-collection-app",
-    "dockerComposeFile": "./docker-compose.yml",
-    "workspaceFolder": "/var/task",
-    "service": "dev-python313-ai-information-collection-app",
-    "customizations": {
-        "vscode": {
-            "settings": {
-                "terminal.integrated.shell.linux": "/bin/bash",
-                "editor.formatOnSave": true
-            },
-            "extensions": [
-                "ms-python.python",
-                "ms-python.vscode-pylance",
-                "ms-python.debugpy",
-                "ms-azuretools.vscode-docker",
-                "mhutchie.git-graph",
-                "codezombiech.gitignore",
-                "eamodio.gitlens",
-                "charliermarsh.ruff",
-                "esbenp.prettier-vscode"
-            ]
-        }
+  "name": "Development Python3.13 ai-information-collection-app",
+  "dockerComposeFile": "./docker-compose.yml",
+  "workspaceFolder": "/var/task",
+  "service": "dev-python313-ai-information-collection-app",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash",
+        "editor.formatOnSave": true
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.debugpy",
+        "charliermarsh.ruff"
+      ]
     }
+  }
 }
