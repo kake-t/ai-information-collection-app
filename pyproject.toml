@@ -1,7 +1,7 @@
 [project]
 name = "ai-information-collection-app"
 version = "1.0.0"
-description = "Default template for PDM package"
+description = "ai information collection app"
 authors = [
     { name = "kake-t", email = "36560265+kake-t@users.noreply.github.com" },
 ]
@@ -41,6 +41,7 @@ license = { text = "MIT" }
 
 [project.optional-dependencies]
 dev = ["pytest==8.3.4", "pytest-mock==3.14.0", "moto==5.0.26"]
+
 [tool.pdm]
 distribution = false
 
