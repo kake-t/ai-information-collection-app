@@ -1,0 +1,57 @@
+[tool.poetry]
+name = "ai-information-collection-app"
+version = "1.0.0"
+description = "ai information collection app"
+authors = ["kake-t <36560265+kake-t@users.noreply.github.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+boto3 = "^1.38.18"
+openai = "^1.79.0"
+tzdata = "^2025.2"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.5"
+pytest-mock = "^3.14.0"
+moto = "^5.1.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "D1",     # undocumented
+    "D203",   # one blank line before class
+    "D213",   # multi-line summary second line
+    "TD001",  # invalid todo tag
+    "TD002",  # missing todo author
+    "TD003",  # missing todo link
+    "PD011",  # pandas use of dot values
+    "D400",
+    "D415",
+    "ANN401",
+    "COM812",
+]
+unfixable = [
+    "F401", # unused import
+    "F841", # unused variable
+]
+exclude = ["tests"]
+logger-objects = ["src.library.logger.LOGGER"]
+
+[tool.ruff.lint.pylint]
+max-args = 6

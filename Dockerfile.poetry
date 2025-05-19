@@ -1,0 +1,16 @@
+FROM public.ecr.aws/lambda/python:3.13
+
+WORKDIR ${LAMBDA_TASK_ROOT}
+
+COPY pyproject.poetry.toml ./pyproject.toml
+COPY poetry.lock ./
+COPY ./src ./
+COPY README.md ./
+
+RUN pip install poetry
+RUN poetry config virtualenvs.create false
+
+RUN poetry install --without dev --no-root
+
+
+CMD [ "infrastructure.lambda_function.handler" ]
