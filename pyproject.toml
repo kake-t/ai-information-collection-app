@@ -42,6 +42,9 @@ license = { text = "MIT" }
 [project.optional-dependencies]
 dev = ["pytest==8.3.4", "pytest-mock==3.14.0", "moto==5.0.26"]
 
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+
 [tool.pdm]
 distribution = false
 

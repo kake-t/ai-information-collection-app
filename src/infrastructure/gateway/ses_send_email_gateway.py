@@ -1,7 +1,7 @@
 from typing import Any
 
-from src.domain.entities.send_email import SendEmailRequest
-from src.domain.gateway.send_email_gateway import SendEmailGateway
+from domain.entities.send_email import SendEmailRequest
+from domain.gateway.send_email_gateway import SendEmailGateway
 
 
 class SesSendEmailGateway(SendEmailGateway):

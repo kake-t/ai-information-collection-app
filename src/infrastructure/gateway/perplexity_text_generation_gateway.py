@@ -1,11 +1,11 @@
 from openai import OpenAI
 
-from src.domain.entities.text_generation import (
+from domain.entities.text_generation import (
     TextGenerationRequest,
     TextGenerationResponse,
 )
-from src.domain.gateway.text_generation_gateway import TextGenerationGateway
-from src.infrastructure.config import TextGenerationApiConfig
+from domain.gateway.text_generation_gateway import TextGenerationGateway
+from infrastructure.config import TextGenerationApiConfig
 
 
 class GeneratedTextIsNoneError(Exception):

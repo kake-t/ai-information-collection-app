@@ -1,8 +1,8 @@
-from src.domain.entities.text_generation import (
+from domain.entities.text_generation import (
     TextGenerationRequest,
     TextGenerationResponse,
 )
-from src.domain.gateway.text_generation_gateway import TextGenerationGateway
+from domain.gateway.text_generation_gateway import TextGenerationGateway
 
 
 class MockTextGenerationGateway(TextGenerationGateway):

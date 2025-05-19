@@ -1,6 +1,6 @@
 from typing import Protocol
 
-from src.domain.entities.send_email import (
+from domain.entities.send_email import (
     SendEmailRequest,
 )
 

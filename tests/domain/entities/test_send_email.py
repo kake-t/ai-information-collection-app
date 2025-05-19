@@ -1,7 +1,7 @@
 from datetime import datetime
 from zoneinfo import ZoneInfo
 
-from src.domain.entities.send_email import SendEmailRequest
+from domain.entities.send_email import SendEmailRequest
 
 
 def test_send_email_request():
